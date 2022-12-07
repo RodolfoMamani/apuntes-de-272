@@ -1,0 +1,17 @@
+arquitectura de oracle
+https://www.canva.com/design/DAEb3ZPh4Ng/9IptdXIS26rJ2c9tZatMHQ/view
+
+usuarios bases de datos
+https://www.canva.com/design/DAEbdimrkls/KHJBsfqdmjdK9TkWGF1cjA/view
+
+administracion de base de datos
+https://www.canva.com/design/DAEct5yHT1Q/D1pOna-qgfynmwDzHLC-Pw/view
+
+archivos de control
+https://www.canva.com/design/DAEc5amNOEQ/JLvCZj3nNDv2fBOp7AFHnA/view
+
+archivos log
+https://www.canva.com/design/DAEdACEW0v0/tKsfpLQA5wFVsEUX9Aty7Q/view
+
+backup & recovery
+https://www.canva.com/design/DAEeN6_J0Bg/_L1C-yblcKO5AiNXG3yr2A/view

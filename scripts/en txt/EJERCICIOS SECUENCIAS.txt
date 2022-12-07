@@ -1,0 +1,137 @@
+--PARA LOS EJERCICIOS DE SECUENCIA TRABAJREMOS EN ELESQUEMA INF272
+--EMPLEADO ANTEIORMENTE PARA TRABAJAR CON LAS TABLAS DEPARTAMENTOS Y EMPLEADOS
+--EMPLEAREMOS SECUENCIAS PARA GENERAR EL CODIGO DE DEPARTAMENTO AUTOMATICAMENTE 
+--CADA VEZ QUE SE INSERTE UN RFEGISTRO
+
+--PRIMERO CREAMOS LA SECUENCIA SEQ_CODDQP
+--CON VALORES POR DEFECTO
+
+CREATE SEQUENCE SEQ_CODDEP;
+
+--PROCEDEMOS A CREAR LA TABLA DPTOPRUEBA PARA INSERTARA NUESTROS REGISTROS
+--Y HACER LA PRUEBA DE LA SECUENCIA
+
+CREATE TABLE DPTOPRUEBA (   
+  depnro      number,   
+  nom_dep   varchar2(50) not null,   
+  ciudad       varchar2(50) not null, 
+  PRIMARY KEY (depnro)   
+);
+
+--INSERTAMOS REGISTROS Y HACEMOS USO DE LA SECUENCIA PARA EL CODIGO
+INSERT INTO DPTOPRUEBA
+(depnro,nom_dep,ciudad) values (SEQ_CODDEP.NEXTVAL,'Marketing','Santa Cruz de la Sierra');
+INSERT INTO DPTOPRUEBA
+(depnro,nom_dep,ciudad) values (SEQ_CODDEP.NEXTVAL,'Sistemas','Cochabamba');
+INSERT INTO DPTOPRUEBA
+(depnro,nom_dep,ciudad) values (SEQ_CODDEP.NEXTVAL,'Auditoria','La Paz');
+INSERT INTO DPTOPRUEBA 
+(depnro,nom_dep,ciudad) values (SEQ_CODDEP.NEXTVAL,'Contabilidad','Potosí');
+INSERT INTO DPTOPRUEBA 
+(depnro,nom_dep,ciudad) values (SEQ_CODDEP.NEXTVAL,'Control de Calidad','Cochabamba');
+INSERT INTO DPTOPRUEBA
+(depnro,nom_dep,ciudad) values (SEQ_CODDEP.NEXTVAL,'Recursos Humanos','Oruro');
+INSERT INTO DPTOPRUEBA
+(depnro,nom_dep,ciudad) values (SEQ_CODDEP.NEXTVAL,'Almacen','Santa Cruz de la Sierra');
+INSERT INTO DPTOPRUEBA 
+(depnro,nom_dep,ciudad) values (SEQ_CODDEP.NEXTVAL,'Investigación y Desarrollo','Tarija');
+INSERT INTO DPTOPRUEBA
+(depnro,nom_dep,ciudad) values (SEQ_CODDEP.NEXTVAL,'Finanzas','Santa Cruz de la Sierra');
+INSERT INTO DPTOPRUEBA
+(depnro,nom_dep,ciudad) values (SEQ_CODDEP.NEXTVAL,'Gerencia General','La Paz');
+
+--CONFIRMAMOS LA INSERCION
+COMMIT;
+--VERIFICAMOS Y VEMOS LOS VALORES QUE SE GENERARON EN DEPNRO
+SELECT * FROM DPTOPRUEBA;
+
+--AHORA CREAREMOS UNA NUEVA TABLA EMPPRUEBA
+--Y CREAREMOS UNA SECUENCIA SEQ_CODEMP
+--CON VALORES ASIGNADOS POR EL USUARIO
+--LUEGO INSERTAREMOS REGISTROS Y VEREMOS QUE PASA
+
+CREATE SEQUENCE SEQ_CODEMP
+START WITH 10
+INCREMENT BY 5
+MAXVALUE 10000
+MINVALUE 10
+CACHE 10
+NOCYCLE;
+
+--CREAMOS TABLA EMPPRUEBA
+create table EMPPRUEBA (   
+  empnro         number,   
+  nomemp         varchar2(50) not null,
+  apeemp	     varchar2(50) not null,
+  cargo          varchar2(50),   
+  fechaing       date,   
+  salario        number(8,2),
+  email          varchar2(50),   
+  depnro         number,
+  constraint pk_empprueba primary key (empnro),   
+  constraint fk_empdept foreign key (depnro)  
+  references DPTOPRUEBA(depnro),
+  constraint CK_emp_salario
+  check (salario>0)
+);
+
+--INSERTAMOS REGISTRO HACIENDO USO DE LA SECUENCIA CREADA
+INSERT INTO EMPPRUEBA (empnro,nomemp,apeemp,cargo,fechaing,salario,email,depnro)
+values (SEQ_CODEMP.NEXTVAL,'Jorge','Choque','Vendedor',TO_DATE('15/01/2021','dd/mm/yyyy'),2000,'jchoquemorales@gmail.com',1);
+
+INSERT INTO EMPPRUEBA (empnro,nomemp,apeemp,cargo,fechaing,salario,email,depnro)
+values (SEQ_CODEMP.NEXTVAL,'Grover','Quispe','Analista Programador',TO_DATE('15/01/2019','dd/mm/yyyy'),5000,'groverq@fcpn.edu.bo',3);
+
+INSERT INTO EMPPRUEBA (empnro,nomemp,apeemp,cargo,fechaing,salario,email,depnro)
+values (SEQ_CODEMP.NEXTVAL,'Rita','Ticona Flores','Gerente General',TO_DATE('25/09/2018','dd/mm/yyyy'),20000,'ritaticonaf@gmail.com',2);
+
+INSERT INTO EMPPRUEBA (empnro,nomemp,apeemp,cargo,fechaing,salario,email,depnro)
+values (SEQ_CODEMP.NEXTVAL,'Michele','Moncada Rivas','Investigadora',TO_DATE('12/02/2020','dd/mm/yyyy'),10000,'lmoncadar@fcpn.edu.bo',9);
+
+INSERT INTO EMPPRUEBA (empnro,nomemp,apeemp,cargo,fechaing,salario,email,depnro)
+values (SEQ_CODEMP.NEXTVAL,'Wilson','Cori Mamani','Administrador Base de Datos',TO_DATE('20/05/2020','dd/mm/yyyy'),7000,'juanwcori@gmail.com',3);
+
+INSERT INTO EMPPRUEBA (empnro,nomemp,apeemp,cargo,fechaing,salario,email,depnro)
+values (SEQ_CODEMP.NEXTVAL,'Gabriela','Mamani Choquehuanca','Inventariadora',TO_DATE('15/12/2020','dd/mm/yyyy'),4500,'gmamanic@fcpn.edu.bo',8);
+
+INSERT INTO EMPPRUEBA (empnro,nomemp,apeemp,cargo,fechaing,salario,email,depnro)
+values (SEQ_CODEMP.NEXTVAL,'Fabiola','Callisaya Huanca','Administradora Portal WEB',TO_DATE('31/03/2019','dd/mm/yyyy'),5500,'fabicalli@yahoo.es',3);
+
+INSERT INTO EMPPRUEBA (empnro,nomemp,apeemp,cargo,fechaing,salario,email,depnro)
+values (SEQ_CODEMP.NEXTVAL,'Limberth','Sangueza Alarcon','Contador',TO_DATE('5/03/2020','dd/mm/yyyy'),3800,'lsanguzaa@fcpn.edu.bo',5);
+
+INSERT INTO EMPPRUEBA (empnro,nomemp,apeemp,cargo,fechaing,salario,email,depnro)
+values (SEQ_CODEMP.NEXTVAL,'Alberto','Zavala Jimenez','Vendedor',TO_DATE('18/05/2021','dd/mm/yyyy'),2000,null,8);
+
+INSERT INTO EMPPRUEBA (empnro,nomemp,apeemp,cargo,fechaing,salario,email,depnro)
+values (SEQ_CODEMP.NEXTVAL,'Karen','Callizaya Jimenez','Vendedor',TO_DATE('18/05/2021','dd/mm/yyyy'),2000,null,8);
+
+
+--CONFIRMAMOS LA INSERCION
+COMMIT;
+
+--SACAMOS UN LISTADO DE LA TABALA Y VEMOS COMO SE GENERARON LOS CODIGOS DE EMPLEADOS
+
+SELECT * FROM EMPPRUEBA;
+
+--ALGUNOS COMANDOS SQL PARA VER SECUENCIAS EN LOS OBJETOS DE ORACLE
+select * from all_sequences;
+
+select * from all_sequences WHERE SEQUENCE_OWNER= 'INF272';
+
+select * from all_objects;
+
+select * from all_objects WHERE OWNER='INF272';
+
+select * from all_objects WHERE OBJECT_TYPE='SEQUENCE' AND OWNER = 'INF272';
+
+select object_name from all_objects where object_type='SEQUENCE';
+
+--PARA MODIFICAR LOS VALORES DE UNA SECUENCIA 
+--CAMBIAREMOS EL VALOR TOPE DE LA SECUENCIA SEQ_CODEMP A 25000
+
+ALTER SEQUENCE SEQ_CODEMP
+MAXVALUE 25000;
+
+--PARA ELIMINAR UNA SECUENCIA 
+DROP SEQUENCE SEQ_CODEMP;
